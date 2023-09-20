@@ -23,6 +23,7 @@ export default function Login() {
   const [ passwordType, setPasswordType ] = useState('password')
   const [ openedEye, setOpenedEye ] = useState(false)
   const [ email, setEmail ] = useState('')
+  const [ name, setName ] = useState('')
   const [ password, setPassword ] = useState('')
   const [ buttonDisabled, setButtonDisabled ] = useState(true)
 
@@ -42,9 +43,10 @@ export default function Login() {
   async function submitHandler(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    const { data } = await api.post('/conta/login', {
+    const { data } = await api.post('/conta/register', {
       email,
-      password
+      password,
+      name
     })
 
     localStorage.setItem('token', data.token)
@@ -53,12 +55,12 @@ export default function Login() {
   }
 
   useEffect(() => {
-    if (email.match(emailRegex) && password.length > 5) {
+    if (email.match(emailRegex) && password.length > 5 && name.length > 0) {
       setButtonDisabled(false)
     } else {
       setButtonDisabled(true)
     }
-  }, [email, password])
+  }, [email, password, name])
 
 
 
@@ -66,8 +68,8 @@ export default function Login() {
     <div className='min-h-screen flex items-center justify-center'>
       <Card>
         <CardHeader className='pb-4 pr-10 pl-10'>
-          <CardTitle>Login</CardTitle>
-          <CardDescription>If {"don't"} have an account, <Link className='text-blue-600' href='/register'>register</Link></CardDescription>
+          <CardTitle>Register</CardTitle>
+          <CardDescription>If you already have an account, <Link className='text-blue-600' href="/login">login</Link></CardDescription>
         </CardHeader>
         <Separator className='w-4/5 ml-auto mr-auto mb-4 gap-4' />
         <CardContent>
@@ -76,6 +78,10 @@ export default function Login() {
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="email">Email</Label>
                 <Input id="email" placeholder="example@gmail.com" value={email} onChange={({target}) => setEmail(target.value)}/>
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="name">Name</Label>
+                <Input id="name" value={name} onChange={({target}) => setName(target.value)}/>
               </div>
               <div className="relative">
                 <Label htmlFor="password" >Password</Label>
@@ -88,7 +94,7 @@ export default function Login() {
                   }
                 </div>
               </div>
-              <Button type="submit" variant='outline' disabled={buttonDisabled}>Login</Button>
+              <Button type="submit" variant='outline' disabled={buttonDisabled}>Register</Button>
             </div>
           </form>
         </CardContent>
