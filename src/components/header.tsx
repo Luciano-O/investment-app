@@ -11,7 +11,7 @@ export function Header(props: headerProps) {
   const { theme, setTheme } = useTheme();
   const { name } = props
   return (
-    <header className='flex justify-between'>
+    <header className='flex justify-between w-full'>
       <Linkedin className='m-2'/>
       <div className='flex m-2'>
         <button
@@ -25,7 +25,7 @@ export function Header(props: headerProps) {
         </button>
         <Separator orientation='vertical' className='mr-1 ml-1 bg-gray-600'/>
         <UserCircle />
-        <p>{name}</p>
+        <p className='ml-2'>{name}</p>
       </div>
     </header>
   )
