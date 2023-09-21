@@ -3,5 +3,12 @@ export interface User {
   id?: number,
   balance?: number, 
   email?: string,
-  stocks: object[]
+  stocks: Stock[]
+}
+
+export interface Stock {
+  id: number,
+  name: string,
+  price: number,
+  quantity?: number
 }

@@ -24,7 +24,7 @@ export function BalanceCard(props: balanceProps) {
   }
 
   return (
-    <Card className='min-w-80 p-3 m-4 bg-white dark:bg-black'>
+    <Card className='min-w-80 p-3 m-4'>
       <div className='flex justify-around m-4 relative items-center'>
         <CardTitle>Balance:</CardTitle>
         <p>R$

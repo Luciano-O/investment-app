@@ -8,37 +8,40 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Card } from './ui/card'
+import { useEffect, useState } from 'react'
 import { Stock } from '../interfaces/user.interface'
+import { api } from '../lib/axios'
 
-interface UserStocksProps {
-  stocks: Stock[]
-}
+export function AllStocks() {
+  const [ stocks, setStocks ] = useState<Stock[]>()
 
-export function UserStocks(props: UserStocksProps) {
-  const { stocks } = props
+  useEffect(() => {
+    const bringStocks = async () => {
+      const { data } = await api.get('/ativos')
+
+      setStocks(data)
+    }
+
+    bringStocks()
+  }, [])
+
   return (
-    <Card className='m-4'>
+    <Card>
       <Table>
-        <TableCaption className='mb-2'>User buyed stocks</TableCaption>
+        <TableCaption className='mb-2'>All Stocks</TableCaption>
         <TableHeader>
           <TableHead>Name</TableHead>
           <TableHead>Price</TableHead>
-          <TableHead>Amount</TableHead>
-          <TableHead className='text-right'>Total</TableHead>
+          <TableHead className='text-right'>Amount</TableHead>
         </TableHeader>
-        <TableBody>
+      <TableBody>
           {
-            stocks.map((stock) => {
+            stocks?.map((stock) => {
               return(
                 <TableRow key={stock.id}>
                   <TableCell className='font-medium'>{stock.name}</TableCell>
                   <TableCell>{`R$ ${stock.price.toFixed(2)}`}</TableCell>
-                  <TableCell>{stock.quantity}</TableCell>
-                  <TableCell
-                    className='text-right'
-                  >
-                    {`R$ ${((stock.price * (stock.quantity || 1)).toFixed(2))}`}
-                  </TableCell>
+                  <TableCell className='text-right'>{stock.quantity}</TableCell>
                 </TableRow>
               )
             })

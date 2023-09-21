@@ -7,6 +7,7 @@ import { Separator } from '../components/ui/separator'
 import { User } from '../interfaces/user.interface'
 import { BalanceCard } from '../components/balance'
 import { UserStocks } from '../components/userStocks'
+import { AllStocks } from '../components/allStocks'
 
 
 export default function Home() {
@@ -40,11 +41,14 @@ export default function Home() {
     <div className='flex flex-col items-center h-screen'>
       <Header name={user.name}/>
       <Separator className='w-[98%] bg-gray-600'/>
-      <div className='flex flex-row w-full'>
-        <aside>
+      <div className='flex flex-row w-full flex-wrap'>
+        <aside className='flex-auto md:flex-none'>
           <BalanceCard user={user} />
           <UserStocks stocks={user.stocks}/>
         </aside>
+        <main className='m-4 min-w-fit flex-auto'>
+          <AllStocks />
+        </main>
       </div>
     </div>
   )
