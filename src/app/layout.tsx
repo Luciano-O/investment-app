@@ -1,5 +1,4 @@
 import './globals.css'
-import { ThemeProvider } from "next-themes"
 import Providers from './providers'
 
 export default function RootLayout({
@@ -10,7 +9,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Providers>
+        <Providers
+          attribute='class'
+          defaultTheme='system'
+          enableSystem
+          disableTransitionOnChange
+        >
           {children}
         </Providers>
       </body>

@@ -6,10 +6,11 @@ import { api } from '../lib/axios'
 import { Separator } from '../components/ui/separator'
 import { User } from '../interfaces/user.interface'
 import { BalanceCard } from '../components/balance'
+import { UserStocks } from '../components/userStocks'
 
 
 export default function Home() {
-  const [ user, setUser ] = useState<User>({ name: ''})
+  const [ user, setUser ] = useState<User>({ name: '', stocks: []})
   const router = useRouter()
 
   useEffect(() => {
@@ -38,9 +39,12 @@ export default function Home() {
   return (
     <div className='flex flex-col items-center h-screen'>
       <Header name={user.name}/>
-      <Separator className='w-screen bg-gray-600'/>
+      <Separator className='w-[98%] bg-gray-600'/>
       <div className='flex flex-row w-full'>
-        <BalanceCard user={user} />
+        <aside>
+          <BalanceCard user={user} />
+          <UserStocks stocks={user.stocks}/>
+        </aside>
       </div>
     </div>
   )
