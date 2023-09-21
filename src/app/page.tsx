@@ -4,14 +4,9 @@ import { useRouter } from 'next/navigation'
 import { Header } from '../components/header'
 import { api } from '../lib/axios'
 import { Separator } from '../components/ui/separator'
+import { User } from '../interfaces/user.interface'
+import { BalanceCard } from '../components/balance'
 
-interface User {
-  name: string,
-  id?: number,
-  balance?: number, 
-  email?: string,
-  stocks?: object[]
-}
 
 export default function Home() {
   const [ user, setUser ] = useState<User>({ name: ''})
@@ -19,13 +14,18 @@ export default function Home() {
 
   useEffect(() => {
     const bringUser = async (token: string) => {
-      const { data } = await api.get('/conta', {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
+      try{
+        const { data } = await api.get('/conta', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
 
-      setUser(data)
+        setUser(data)
+      } catch(e) {
+        localStorage.removeItem('token')
+        router.push('/login')
+      }
     }
 
     const token = localStorage.getItem('token')
@@ -39,6 +39,9 @@ export default function Home() {
     <div className='flex flex-col items-center h-screen'>
       <Header name={user.name}/>
       <Separator className='w-screen bg-gray-600'/>
+      <div className='flex flex-row w-full'>
+        <BalanceCard user={user} />
+      </div>
     </div>
   )
 }

@@ -1,5 +1,5 @@
 "use client"
-import { Linkedin, Moon, Sun, UserCircle } from 'lucide-react';
+import { Linkedin, Sun, UserCircle } from 'lucide-react';
 import { useTheme } from "next-themes";
 import { Separator } from './ui/separator';
 
@@ -17,11 +17,7 @@ export function Header(props: headerProps) {
         <button
           onClick={() => theme == 'dark' ? setTheme('light') : setTheme('dark')}
         >
-          {
-            theme === 'dark' ?
-            <Sun /> :
-            <Moon />
-          }
+          <Sun />
         </button>
         <Separator orientation='vertical' className='mr-1 ml-1 bg-gray-600'/>
         <UserCircle />
