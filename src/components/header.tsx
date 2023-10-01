@@ -11,7 +11,7 @@ export function Header(props: headerProps) {
   const { theme, setTheme } = useTheme();
   const { name } = props
   return (
-    <header className='flex justify-between w-full'>
+    <header className='flex justify-between w-screen'>
       <Linkedin className='m-2'/>
       <div className='flex m-2'>
         <button
